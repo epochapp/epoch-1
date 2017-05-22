@@ -9,18 +9,14 @@
   <p>
     We'll put Offers and Requests on this page in a list view to start
   </p>
-  <p>
-    We can add more tabs to the app in the <code>src/pages/</code> directory.
-  </p>
   <ion-list>
-    <ion-card>
-      <img src="assets/png/talk.png"/>
+    <ion-card  *ngFor="let request of requests | async"> <!-- (click)="showOptions(request.$key, request.description)">-->
       <ion-card-content>
         <ion-card-title>
-          Language Help
-          </ion-card-title>
+          {{request.creator}}
+        </ion-card-title>
         <p>
-          Help _Jonathan_ out with their language skills!
+          {{request.description}}
         </p>
       </ion-card-content>
     </ion-card>
