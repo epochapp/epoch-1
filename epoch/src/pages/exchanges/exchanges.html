@@ -14,7 +14,7 @@
     We'll put Requests (and later offers) on this page in a list view to start
   </p>
   <ion-list>
-    <ion-card  *ngFor="let request of requests | async" (click)="showOptions(request.$key)"> <!-- TODO: Filter by requests that are have status=="open" -->
+    <ion-card  *ngFor="let request of requests | async" (click)="showOptions(request.$key, request.description)"> <!-- TODO: Filter by requests that are have status=="open" -->
       <ion-card-content>
         <ion-card-title>
           {{request.title}}
