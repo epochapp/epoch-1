@@ -1,20 +1,30 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Exchanges</ion-title>
+    <ion-title>Requests</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="addRequest()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h2>List of Exchanges</h2>
   <p>
-    We'll put Offers and Requests on this page in a list view to start
+    We'll put Requests (and later offers) on this page in a list view to start
   </p>
   <ion-list>
-    <ion-card  *ngFor="let request of requests | async"> <!-- (click)="showOptions(request.$key, request.description)">-->
+    <ion-card  *ngFor="let request of requests | async" (click)="showOptions(request.$key)"> <!-- TODO: Filter by requests that are have status=="open" -->
       <ion-card-content>
         <ion-card-title>
-          {{request.creator}}
+          {{request.title}}
         </ion-card-title>
+        <p>
+          Created by: <b>{{request.creator}}</b>
+        </p>
+        <p>
+          Duration: <b>{{request.duration}} hours</b>
+        </p>
         <p>
           {{request.description}}
         </p>
