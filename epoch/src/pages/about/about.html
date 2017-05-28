@@ -1,11 +1,26 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>
-      About
+      User Profile
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>
+        Current User
+      </ion-card-title>
+      <p>
+        UID: {{ (user | async)?.uid }}
+      </p>
+    </ion-card-content>
+  </ion-card>
+
+  <button ion-button block color="danger" (click)="logoutUser()">
+    Logout
+  </button>
+
 
 </ion-content>
