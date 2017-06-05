@@ -10,7 +10,27 @@
   <link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#4e8ef7">
- 
+  
+  <!-- FIREBASE SET UP -->
+  <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-app.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-database.js"></script>
+  
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyAn_djAHiqDzGMioUSSuVYXdeEqcPeUavc",
+      authDomain: "epochapp-45a13.firebaseapp.com",
+      databaseURL: "https://epochapp-45a13.firebaseio.com",
+      projectId: "epochapp-45a13",
+      storageBucket: "epochapp-45a13.appspot.com",
+      messagingSenderId: "1055680943112"
+    };
+    firebase.initializeApp(config);
+  </script>
+  <!--  FIREBASE SET UP END -->
+
   <!-- cordova.js required for cordova apps -->
   <script src="cordova.js"></script>
 
