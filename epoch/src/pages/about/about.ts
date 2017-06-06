@@ -20,7 +20,6 @@ export class AboutPage {
 
   logoutUser() {
     this.afAuth.auth.signOut();
-    this.navCtrl.setRoot(LoginPage);
     this.navCtrl.popToRoot();
 
   }
