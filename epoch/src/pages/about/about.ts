@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { NavController } from 'ionic-angular';
 
-import { LoginPage } from '../login/login';
-
 import * as Firebase from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
 
@@ -21,6 +19,5 @@ export class AboutPage {
   logoutUser() {
     this.afAuth.auth.signOut();
     this.navCtrl.popToRoot();
-
   }
 }
