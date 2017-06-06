@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>Requests</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="addRequest()">
@@ -11,7 +11,7 @@
 
 <ion-content padding>
   <p>
-    We'll put Requests (and later offers) on this page in a list view to start
+    Click on request cards to access more functionality
   </p>
   <ion-list>
     <ion-card  *ngFor="let request of requests | async" (click)="showOptions(request.$key, request.description)"> <!-- TODO: Filter by requests that are have status=="open" -->
