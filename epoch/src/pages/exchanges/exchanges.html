@@ -14,7 +14,7 @@
     Click on request cards to access more functionality
   </p>
   <ion-list>
-    <ion-card  *ngFor="let request of openRequests | async" (click)="showOptions(request.$key, request.description)"> <!-- TODO: Filter by requests that are have status=="open" -->
+    <ion-card  *ngFor="let request of openRequests | async" (click)="showOptions(request.$key, request.description)">
       <ion-card-content>
         <ion-card-title>
           {{request.title}}

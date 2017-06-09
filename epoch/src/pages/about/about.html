@@ -7,17 +7,45 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card>
-    <ion-card-content>
-      <ion-card-title>
-        Current User
-      </ion-card-title>
-      <p>UID: {{ (currentUser | async)?.uid }}</p>
-      <p>Name: {{ (currentUserMetadata | async)?.displayName }}</p>
-      <p>Organization: {{ (currentUserMetadata | async)?.org }}</p>
-      <p>Credits: {{ (currentUserMetadata | async)?.credits }}</p>
-    </ion-card-content>
-  </ion-card>
+  <ion-title>
+      Open Requests
+  </ion-title>
+  <ion-list>
+    <ion-card  *ngFor="let request of currentUserRequests | async" >
+      <ion-card-content>
+        <ion-card-title>
+          {{request.title}}
+        </ion-card-title>
+        <p>
+          Created by: <b>{{ request.creatorName }}</b>
+        </p>
+        <p>
+          <ion-icon name="time"></ion-icon> <b>{{request.duration}} hours</b>
+        </p>
+        <p>
+          {{request.description}}
+        </p>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+  <ion-title>
+    Open Responses
+  </ion-title>
+   <ion-list>
+  </ion-list>
+
+  <ion-title>
+    Current User
+  </ion-title>
+  <p>UID: {{ (currentUser | async)?.uid }}</p>
+  <p>Name: {{ (currentUserMetadata | async)?.displayName }}</p>
+  <p>Organization: {{ (currentUserMetadata | async)?.org }}</p>
+  <p>Credits: {{ (currentUserMetadata | async)?.credits }}</p>    
+      
+    
+
+  
 
   <button ion-button block color="danger" (click)="logoutUser()">
     Logout

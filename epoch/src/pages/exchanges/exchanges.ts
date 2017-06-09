@@ -16,6 +16,7 @@ import { OrganizationProvider } from '../../providers/organization/organization'
 export class ExchangesPage {
   openRequests: FirebaseListObservable<any[]>;
   currentUserMetadata: FirebaseObjectObservable<any>;
+  currentUserOpenRequests: FirebaseListObservable<any[]>;
 
   organization: string;
 
@@ -52,6 +53,7 @@ export class ExchangesPage {
         this.organization = orgRetrieved;
         this.openRequests = db.list(orgRetrieved + '/requests-open');
         this.currentUserMetadata = db.object(organizationData.getOrganization() + '/users/' + currentUser.uid + '/metadata');
+        this.currentUserOpenRequests = db.list(organizationData.getOrganization() + '/users/' + currentUser.uid + '/requests-open');
       });
      }
      
@@ -88,17 +90,30 @@ export class ExchangesPage {
             var creatorUid, creatorName: String;
             if (currentUser != null) {
               creatorUid = currentUser.uid;
+              var t = d.getTime();
+              var duration = 2;
               var userMetadataRef = Firebase.database().ref(this.organization + "/users/"+ creatorUid + "/metadata/displayName");
               userMetadataRef.once('value', function(snapshot)  {
                 creatorName = snapshot.val();
               }).then( () => {
-                this.openRequests.push({
+                var newRef = this.openRequests.push({
                   title: data.title,
                   description: data.description,
-                  starttime: d.getTime(),
-                  duration: 2,
+                  starttime: t,
+                  duration: duration,
                   creatorUid: creatorUid,
                   creatorName: creatorName
+                }).then( (snapshot) => {
+                  const newKey = snapshot.key;
+                  var userNewOpenRequestRef = Firebase.database().ref(this.organization + "/users/"+ creatorUid + "/requests-open/" + newKey);
+                  userNewOpenRequestRef.set({
+                  title: data.title,
+                  description: data.description,
+                  starttime: t,
+                  duration: duration,
+                  creatorUid: creatorUid,
+                  creatorName: creatorName
+                });
                 });
               });
             } else {
@@ -199,7 +214,8 @@ export class ExchangesPage {
           handler: data => {
             var requestOldRef = Firebase.database().ref(this.organization + "/requests-open/" + requestId);
             var requestNewRef = Firebase.database().ref(this.organization + "/requests-confirmed/" + requestId);
-            moveFirebaseRecord(requestOldRef, requestNewRef);
+            var requestOldUserRef = Firebase.database().ref(this.organization + "/users/" + Firebase.auth().currentUser.uid + "/requests-open/" + requestId);
+            moveFirebaseRecord(requestOldRef, requestNewRef, requestOldUserRef);
             // TODO: Add this request to the responders 'responses'
           }
         }
@@ -209,10 +225,10 @@ export class ExchangesPage {
   }
 }
 
-function moveFirebaseRecord(oldRef, newRef) {    
+function moveFirebaseRecord(oldRef, newRef, oldUserRef) {    
      oldRef.once('value', function(snapshot)  {
           newRef.set( snapshot.val(), function(error) {
-               if( !error ) {  oldRef.remove(); }
+               if( !error ) {  oldRef.remove(); oldUserRef.remove(); }
                else if( typeof(console) !== 'undefined' && console.error ) {  console.error(error); }
           });
      });
