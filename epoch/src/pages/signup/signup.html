@@ -11,6 +11,30 @@
   <form [formGroup]="signupForm" (submit)="signupUser()" novalidate>
 
     <ion-item>
+      <ion-label stacked>Organization</ion-label>
+      <ion-input formControlName="organization" type="string"  placeholder="Organization Name"
+                 [class.invalid]="!signupForm.controls.organization.valid && 
+                                  signupForm.controls.organization.dirty"></ion-input>
+    </ion-item>
+    <ion-item class="error-message" 
+              *ngIf="!signupForm.controls.organization.valid  && 
+                     signupForm.controls.organization.dirty">
+      <p>Your organization shouldn't be empty.</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Name</ion-label>
+      <ion-input formControlName="name" type="string"  placeholder="Name to display"
+                 [class.invalid]="!signupForm.controls.name.valid && 
+                                  signupForm.controls.name.dirty"></ion-input>
+    </ion-item>
+    <ion-item class="error-message" 
+              *ngIf="!signupForm.controls.name.valid  && 
+                     signupForm.controls.name.dirty">
+      <p>Your name needs at least 3 characters.</p>
+    </ion-item>
+
+    <ion-item>
       <ion-label stacked>Email</ion-label>
       <ion-input formControlName="email" type="email" placeholder="Your email address"
                   [class.invalid]="!signupForm.controls.email.valid && 
@@ -31,8 +55,10 @@
     <ion-item class="error-message" 
               *ngIf="!signupForm.controls.password.valid  && 
                      signupForm.controls.password.dirty">
-      <p>Your password needs more than 8 characters.</p>
+      <p>Your password needs at least 8 characters.</p>
     </ion-item>
+
+
 
     <button ion-button block type="submit">
       Create an Account

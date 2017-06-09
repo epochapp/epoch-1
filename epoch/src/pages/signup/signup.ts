@@ -9,7 +9,6 @@ import { AuthProvider } from '../../providers/auth/auth';
 
 import { TabsPage } from '../tabs/tabs';
 
-
 @IonicPage()
 @Component({
   selector: 'page-signup',
@@ -28,7 +27,9 @@ export class SignupPage {
                 
       this.signupForm = formBuilder.group({
         email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
-        password: ['', Validators.compose([Validators.required, Validators.minLength(8)])]
+        password: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
+        name: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+        organization: ['', Validators.compose([Validators.required, Validators.minLength(1)])]
       });
 
   }
@@ -42,8 +43,9 @@ export class SignupPage {
       // TODO: Throw an error
       console.log(this.signupForm.value);
     } else {
-      this.authData.signupUser(this.signupForm.value.email, this.signupForm.value.password)
+      this.authData.signupUser(this.signupForm.value.email, this.signupForm.value.password, this.signupForm.value.name, this.signupForm.value.organization)
         .then(() => {
+        // Success!
         this.navCtrl.setRoot(TabsPage);
       }, (error) => {
         this.loading.dismiss().then( () => {

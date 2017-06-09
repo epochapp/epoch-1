@@ -12,9 +12,10 @@
       <ion-card-title>
         Current User
       </ion-card-title>
-      <p>
-        UID: {{ (user | async)?.uid }}
-      </p>
+      <p>UID: {{ (currentUser | async)?.uid }}</p>
+      <p>Name: {{ (currentUserMetadata | async)?.displayName }}</p>
+      <p>Organization: {{ (currentUserMetadata | async)?.org }}</p>
+      <p>Credits: {{ (currentUserMetadata | async)?.credits }}</p>
     </ion-card-content>
   </ion-card>
 
