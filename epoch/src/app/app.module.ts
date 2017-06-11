@@ -19,6 +19,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { firebaseConfig } from '../firebaseConfig.ts';
 import { AuthProvider } from '../providers/auth/auth';
 import { OrganizationProvider } from '../providers/organization/organization';
+import { RequestsProvider } from '../providers/requests/requests';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { OrganizationProvider } from '../providers/organization/organization';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
-    OrganizationProvider
+    OrganizationProvider,
+    RequestsProvider
   ]
 })
 export class AppModule {}

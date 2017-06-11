@@ -16,6 +16,8 @@ export class AboutPage {
   currentUser: Observable<Firebase.User>;
   currentUserMetadata: FirebaseObjectObservable<any>;
   currentUserRequests: FirebaseListObservable<any[]>;
+  currentUserResponses: FirebaseListObservable<any[]>;
+
 
   constructor(public navCtrl: NavController, 
               public db: AngularFireDatabase, 
@@ -27,6 +29,8 @@ export class AboutPage {
     var currentUser = Firebase.auth().currentUser;
     this.currentUserMetadata = db.object(organizationData.getOrganization() + '/users/' + currentUser.uid + '/metadata');
     this.currentUserRequests = db.list(organizationData.getOrganization() + '/users/' + currentUser.uid + '/requests-open');
+    this.currentUserResponses = db.list(organizationData.getOrganization() + '/users/' + currentUser.uid + '/responses-open');
+
 
     const orgObservable = organizationData.organization.subscribe( org =>
     {
@@ -35,6 +39,7 @@ export class AboutPage {
       if (org) {
         this.currentUserMetadata = db.object(org + '/users/' + currentUser.uid + '/metadata');
         this.currentUserRequests = db.list(org + '/users/' + currentUser.uid + '/requests-open');
+        this.currentUserResponses = db.list(org + '/users/' + currentUser.uid + '/responses-open');
       }
     });
     

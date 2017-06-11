@@ -32,7 +32,14 @@
   <ion-title>
     Open Responses
   </ion-title>
-   <ion-list>
+  <ion-list>
+    <ion-card  *ngFor="let response of currentUserResponses | async" >
+      <ion-card-content>
+        <ion-card-title>
+          {{response.request}}
+        </ion-card-title>
+      </ion-card-content>
+    </ion-card>
   </ion-list>
 
   <ion-title>
@@ -43,10 +50,6 @@
   <p>Organization: {{ (currentUserMetadata | async)?.org }}</p>
   <p>Credits: {{ (currentUserMetadata | async)?.credits }}</p>    
       
-    
-
-  
-
   <button ion-button block color="danger" (click)="logoutUser()">
     Logout
   </button>

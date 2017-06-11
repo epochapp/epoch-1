@@ -7,6 +7,7 @@ import * as Firebase from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
 
 import { OrganizationProvider } from '../../providers/organization/organization';
+import { RequestsProvider } from '../../providers/requests/requests';
 
 
 @Component({
@@ -24,7 +25,8 @@ export class ExchangesPage {
               public alertCtrl: AlertController, 
               public actionSheetCtrl: ActionSheetController,
               public db: AngularFireDatabase,
-              public organizationData: OrganizationProvider) {
+              public organizationData: OrganizationProvider,
+              public requests: RequestsProvider) {
      
     // var currentUser = Firebase.auth().currentUser;
     // if (currentUser != null) {
@@ -62,7 +64,6 @@ export class ExchangesPage {
 
   // Generates a new request entity in Firebase using user input
   addRequest() {
-    var d = new Date();
     let prompt = this.alertCtrl.create({
       title: 'Request Name',
       message: "Enter the title of your new request",
@@ -86,42 +87,7 @@ export class ExchangesPage {
         {
           text: 'Save',
           handler: data => {
-            var currentUser = Firebase.auth().currentUser;
-            var creatorUid, creatorName: String;
-            if (currentUser != null) {
-              creatorUid = currentUser.uid;
-              var t = d.getTime();
-              var duration = 2;
-              var userMetadataRef = Firebase.database().ref(this.organization + "/users/"+ creatorUid + "/metadata/displayName");
-              userMetadataRef.once('value', function(snapshot)  {
-                creatorName = snapshot.val();
-              }).then( () => {
-                var newRef = this.openRequests.push({
-                  title: data.title,
-                  description: data.description,
-                  starttime: t,
-                  duration: duration,
-                  creatorUid: creatorUid,
-                  creatorName: creatorName
-                }).then( (snapshot) => {
-                  const newKey = snapshot.key;
-                  var userNewOpenRequestRef = Firebase.database().ref(this.organization + "/users/"+ creatorUid + "/requests-open/" + newKey);
-                  userNewOpenRequestRef.set({
-                  title: data.title,
-                  description: data.description,
-                  starttime: t,
-                  duration: duration,
-                  creatorUid: creatorUid,
-                  creatorName: creatorName
-                });
-                });
-              });
-            } else {
-              console.log("Failed to create request - couldn't access current user.")
-              return;
-            }
-           
-            // TODO: Add this request to the user's list of openRequests
+            this.requests.postOpenRequest(data, this.openRequests);
           }
         }
       ]
