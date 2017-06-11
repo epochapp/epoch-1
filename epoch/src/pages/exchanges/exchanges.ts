@@ -27,6 +27,7 @@ export class ExchangesPage {
               public db: AngularFireDatabase,
               public organizationData: OrganizationProvider,
               public requests: RequestsProvider) {
+    console.log("Exchanges page is being constructed");
      
     // var currentUser = Firebase.auth().currentUser;
     // if (currentUser != null) {
@@ -178,11 +179,12 @@ export class ExchangesPage {
         {
           text: 'Confirm',
           handler: data => {
-            var requestOldRef = Firebase.database().ref(this.organization + "/requests-open/" + requestId);
-            var requestNewRef = Firebase.database().ref(this.organization + "/requests-confirmed/" + requestId);
-            var requestOldUserRef = Firebase.database().ref(this.organization + "/users/" + Firebase.auth().currentUser.uid + "/requests-open/" + requestId);
-            moveFirebaseRecord(requestOldRef, requestNewRef, requestOldUserRef);
+            // var requestOldRef = Firebase.database().ref(this.organization + "/requests-open/" + requestId);
+            // var requestNewRef = Firebase.database().ref(this.organization + "/requests-confirmed/" + requestId);
+            // var requestOldUserRef = Firebase.database().ref(this.organization + "/users/" + Firebase.auth().currentUser.uid + "/requests-open/" + requestId);
+            // moveFirebaseRecord(requestOldRef, requestNewRef, requestOldUserRef);
             // TODO: Add this request to the responders 'responses'
+            this.requests.submitResponseToOpenRequest(requestId);
           }
         }
       ]

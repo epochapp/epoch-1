@@ -25,6 +25,14 @@
         <p>
           {{request.description}}
         </p>
+        <ion-list>
+          Responses:
+          <ion-card *ngFor="let response of request.responses-open | async" >
+            <ion-card-content>
+              <p>Confirm {{response.responderName}}</p>
+            </ion-card-content>
+          </ion-card>
+        </ion-list>
       </ion-card-content>
     </ion-card>
   </ion-list>
@@ -36,8 +44,9 @@
     <ion-card  *ngFor="let response of currentUserResponses | async" >
       <ion-card-content>
         <ion-card-title>
-          {{response.request}}
+          {{response.responderName}}
         </ion-card-title>
+        {{response.requestId}}
       </ion-card-content>
     </ion-card>
   </ion-list>
