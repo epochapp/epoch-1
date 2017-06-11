@@ -105,9 +105,6 @@ export class RequestsProvider {
             userNewOpenResponseRef.set(newResponse);
           });
         });
-
-
-
       });
     }
    }
@@ -119,15 +116,43 @@ export class RequestsProvider {
    *  - Moves the same Request from users/<CURRENTUSER>/requests-open to users/<CURRENTUSER>/requests-confirmed
    *  - Exchanges credits (from requestor to responder)
    */
-   confirmResponseToOpenRequest(requestId: string, ) {
+  confirmResponseToOpenRequest(requestId: string, ) {
+    var currentUser = Firebase.auth().currentUser;
+    var d = new Date();
+    var responderName: String;
+    var requestResponsesList: FirebaseListObservable<any[]>;
+
+    if (currentUser != null) {
+      var t = d.getTime();
+
+      // Get organization
+      var userOrgMapRef  = Firebase.database().ref("/user-org-map/" + currentUser.uid);
+      var organization : string;
+      userOrgMapRef.once("value", function(org) {
+        organization = org.val();
+      }, function (error) {
+        console.log("Couldn't get organization: " + error.code);
+      }).then( () => {
+        var newUserRequestRef = Firebase.database().ref(organization + "/users/"+ currentUser.uid + "/requests-confirmed/" + requestId);
+        var oldUserRequestRef = Firebase.database().ref(organization + "/users/"+ currentUser.uid + "/requests-open/" + requestId);
+        moveFirebaseRecord(oldUserRequestRef, newUserRequestRef);
+
+        var newRequestRef = Firebase.database().ref(organization + "/requests-confirmed/" + requestId);
+        var oldRequestRef = Firebase.database().ref(organization + "/requests-open/" + requestId);
+        moveFirebaseRecord(oldRequestRef, newRequestRef);
+
+        // TODO: Add a confirm field to request in request-confirmed
+        // 
+      });
+    }
 
    }
 }
 
-function moveFirebaseRecord(oldRef, newRef, oldUserRef) {    
+function moveFirebaseRecord(oldRef, newRef) {    
      oldRef.once('value', function(snapshot)  {
           newRef.set( snapshot.val(), function(error) {
-               if( !error ) {  oldRef.remove(); oldUserRef.remove(); }
+               if( !error ) {  oldRef.remove(); }
                else if( typeof(console) !== 'undefined' && console.error ) {  console.error(error); }
           });
      });

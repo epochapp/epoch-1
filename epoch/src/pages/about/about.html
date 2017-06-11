@@ -30,7 +30,7 @@
           <ion-card *ngFor="let response of request.responses-open | async" >
             <ion-card-content>
               <p>Confirm {{response.responderName}}</p>
-            </ion-card-content>
+            </ion-card-content> 
           </ion-card>
         </ion-list>
       </ion-card-content>
@@ -41,7 +41,8 @@
     Open Responses
   </ion-title>
   <ion-list>
-    <ion-card  *ngFor="let response of currentUserResponses | async" >
+    <ion-card  *ngFor="let response of currentUserResponses | async" 
+                (click)="confirmResponseToOpenRequest( response.requestId )">
       <ion-card-content>
         <ion-card-title>
           {{response.responderName}}

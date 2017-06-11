@@ -7,6 +7,7 @@ import * as Firebase from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
 
 import { OrganizationProvider } from '../../providers/organization/organization';
+import { RequestsProvider } from '../../providers/requests/requests';
 
 @Component({
   selector: 'page-about',
@@ -22,7 +23,8 @@ export class AboutPage {
   constructor(public navCtrl: NavController, 
               public db: AngularFireDatabase, 
               public afAuth: AngularFireAuth,
-              public organizationData: OrganizationProvider) {
+              public organizationData: OrganizationProvider,
+              public requests: RequestsProvider) {
     
     this.currentUser = afAuth.authState;
 
@@ -44,6 +46,11 @@ export class AboutPage {
     });
     
 
+  }
+
+  confirmResponseToOpenRequest(requestId: string) {
+    console.log("Confirming response to " + requestId);
+    this.requests.confirmResponseToOpenRequest(requestId);
   }
 
   logoutUser() {
