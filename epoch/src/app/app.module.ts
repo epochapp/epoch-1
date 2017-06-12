@@ -13,6 +13,7 @@ import { ExchangesPage } from '../pages/exchanges/exchanges';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { RequestDisplayPage } from '../pages/request-display/request-display';
+import { RequestOptionsPage } from '../pages/request-options/request-options';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -31,6 +32,7 @@ import { RequestsProvider } from '../providers/requests/requests';
     TabsPage,
     LoginPage,
     RequestDisplayPage
+    RequestOptionsPage
   ],
   imports: [
     BrowserModule,
@@ -48,6 +50,7 @@ import { RequestsProvider } from '../providers/requests/requests';
     TabsPage,
     LoginPage,
     RequestDisplayPage
+    RequestOptionsPage
   ],
   providers: [
     StatusBar,

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController, ActionSheetController } from 'ionic-angular';
+import { AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
+import { RequestOptionsPage } from '../request-options/request-options'; 
 
 import {AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable} from 'angularfire2/database';
 import * as Firebase from 'firebase/app';
@@ -65,6 +67,9 @@ export class ExchangesPage {
 
   // Generates a new request entity in Firebase using user input
   addRequest() {
+    this.navCtrl.push(RequestOptionsPage);
+
+    /*var d = new Date();
     let prompt = this.alertCtrl.create({
       title: 'Request Name',
       message: "Enter the title of your new request",
@@ -93,7 +98,7 @@ export class ExchangesPage {
         }
       ]
     });
-    prompt.present();
+    prompt.present();*/
   }
 
   // Shows actions that can be taken to respond to or delete openRequests
