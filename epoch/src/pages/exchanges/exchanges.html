@@ -14,7 +14,7 @@
     Click on request cards to access more functionality
   </p>
   <ion-list>
-    <ion-card  *ngFor="let request of openRequests | async" (click)="showOptions(request.$key, request.description)">
+    <ion-card  *ngFor="let request of openRequests | async" (click)="showOptions(request.$key, request.description, request.creatorUid)">
       <ion-card-content>
         <ion-card-title>
           {{request.title}}

@@ -106,11 +106,6 @@ export class ExchangesPage {
         title: 'What do you want to do?',
         buttons: [
           {
-            text: 'Offer Assistance',
-            handler: () => {
-              this.respondToRequest(requestId);
-            }
-          },{
             text: 'Update Description',
             handler: () => {
               this.updateRequest(requestId, requestDescription);
