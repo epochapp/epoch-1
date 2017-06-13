@@ -10,7 +10,6 @@ import { AngularFireAuth } from 'angularfire2/auth';
 
 import { OrganizationProvider } from '../../providers/organization/organization';
 import { RequestsProvider } from '../../providers/requests/requests';
-import { ObjectProvider } from '../../providers/object/object';
 
 @Component({
   selector: 'page-about',
@@ -26,11 +25,8 @@ export class AboutPage {
               public db: AngularFireDatabase, 
               public afAuth: AngularFireAuth,
               public organizationData: OrganizationProvider,
-              public requests: RequestsProvider,
-              public objectProvider: ObjectProvider) {
-    console.log("Constructing about page");
+              public requests: RequestsProvider) {
 
-    
     this.currentUser = afAuth.authState;
 
     var currentUser = Firebase.auth().currentUser;
@@ -51,6 +47,10 @@ export class AboutPage {
     });
   }
 
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad AboutPage');
+  }
+
   showRequestWithResponses(requestId: string) {
     console.log("Opening detailed request page with responses");
     var requestParameters = {requestId: requestId};
@@ -58,7 +58,8 @@ export class AboutPage {
   }
 
   logoutUser() {
-    this.afAuth.auth.signOut();
-    this.navCtrl.popToRoot();
+    this.afAuth.auth.signOut().then( () => {
+       this.navCtrl.popToRoot();
+    });
   }
 }

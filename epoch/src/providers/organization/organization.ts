@@ -15,8 +15,6 @@ export class OrganizationProvider {
   constructor( public afAuth: AngularFireAuth ) {
     this.organization = Observable.of("");
     const organizationObserver = afAuth.authState.subscribe( user => {
-      console.log("Updating new organization with user " + user.uid);
-
       if (user) {
         var ref = Firebase.database().ref("/user-org-map/" + user.uid);
         var retrievedOrg : string;

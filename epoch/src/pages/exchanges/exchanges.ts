@@ -99,37 +99,59 @@ export class ExchangesPage {
   }
 
   // Shows actions that can be taken to respond to or delete openRequests
-  showOptions(requestId, requestDescription) {
-    // TODO: Direct to request-detail page
-    let actionSheet = this.actionSheetCtrl.create({
-      title: 'What do you want to do?',
-      buttons: [
-        {
-          text: 'Offer Assistance',
-          handler: () => {
-            this.respondToRequest(requestId);
+  showOptions(requestId, requestDescription, requestCreatorId) {
+    if (requestCreatorId == Firebase.auth().currentUser.uid) {
+      // Show creator options
+      let actionSheet = this.actionSheetCtrl.create({
+        title: 'What do you want to do?',
+        buttons: [
+          {
+            text: 'Offer Assistance',
+            handler: () => {
+              this.respondToRequest(requestId);
+            }
+          },{
+            text: 'Update Description',
+            handler: () => {
+              this.updateRequest(requestId, requestDescription);
+            }
+          },{
+            text: 'Delete Request',
+            role: 'destructive',
+            handler: () => {
+              this.removeRequest(requestId);
+            }
+          },{
+            text: 'Back',
+            role: 'cancel',
+            handler: () => {
+              console.log('Back clicked');
+            }
           }
-        },{
-          text: 'Update Description',
-          handler: () => {
-            this.updateRequest(requestId, requestDescription);
+        ]
+      });
+      actionSheet.present();
+    } else {
+      // show non-creator options
+      let actionSheet = this.actionSheetCtrl.create({
+        title: 'What do you want to do?',
+        buttons: [
+          {
+            text: 'Offer Assistance',
+            handler: () => {
+              this.respondToRequest(requestId);
+            }
+          },{
+            text: 'Back',
+            role: 'cancel',
+            handler: () => {
+              console.log('Back clicked');
+            }
           }
-        },{
-          text: 'Delete Request',
-          role: 'destructive',
-          handler: () => {
-            this.removeRequest(requestId);
-          }
-        },{
-          text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        }
-      ]
-    });
-    actionSheet.present();
+        ]
+      });
+      actionSheet.present();
+    }
   }
 
   removeRequest(requestId: string){

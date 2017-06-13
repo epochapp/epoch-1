@@ -21,7 +21,6 @@ import { firebaseConfig } from '../firebaseConfig.ts';
 import { AuthProvider } from '../providers/auth/auth';
 import { OrganizationProvider } from '../providers/organization/organization';
 import { RequestsProvider } from '../providers/requests/requests';
-import { ObjectProvider } from '../providers/object/object';
 
 @NgModule({
   declarations: [
@@ -56,8 +55,7 @@ import { ObjectProvider } from '../providers/object/object';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     OrganizationProvider,
-    RequestsProvider,
-    ObjectProvider
+    RequestsProvider
   ]
 })
 export class AppModule {}
