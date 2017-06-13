@@ -1,0 +1,31 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>When do you need help?</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+	<ion-item>
+	  <ion-label>Date:</ion-label>
+	  <ion-datetime displayFormat="MMMM D" pickerFormat="MMMM D"></ion-datetime>
+	</ion-item>
+
+	<ion-item>
+	  <ion-label>Time:</ion-label>
+	  <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A"></ion-datetime>
+	</ion-item>
+
+	<ion-item>
+	  <ion-label>Duration:</ion-label>
+	  <!--<ion-datetime displayFormat="" pickerFormat=""></ion-datetime>-->
+	</ion-item>
+
+	<ion-footer no-border>
+		<button full ion-button (click)="nextPage()">Next</button>
+	</ion-footer>
+
+</ion-content>
