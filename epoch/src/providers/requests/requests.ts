@@ -126,8 +126,6 @@ export class RequestsProvider {
   confirmResponseToOpenRequest( responseId: string, requestId: string ) {
     var currentUser = Firebase.auth().currentUser;
     var d = new Date();
-    var responderName: String;
-    var requestResponsesList: FirebaseListObservable<any[]>;
 
     if (currentUser != null) {
       // Get organization
@@ -154,6 +152,72 @@ export class RequestsProvider {
       });
     }
   }
+
+  markRequestCompleted( requestId, responderId ) {
+    var currentUser = Firebase.auth().currentUser;
+    var d = new Date();
+    var requestResponsesList: FirebaseListObservable<any[]>;
+
+    if (currentUser != null) {
+      // Get organization
+      var userOrgMapRef  = Firebase.database().ref("/user-org-map/" + currentUser.uid);
+      var organization : string;
+      userOrgMapRef.once("value", function(org) {
+        organization = org.val();
+      }, function (error) {
+        console.log("Couldn't get organization: " + error.code);
+      }).then( () => {
+       
+        // FIXME: This should be based on promises or something so that it doesn't move records without exchanging credits
+        var oldUserRequestRef = Firebase.database().ref(organization + "/users/"+ currentUser.uid + "/requests-confirmed/" + requestId);
+        var newUserRequestRef = Firebase.database().ref(organization + "/users/"+ currentUser.uid + "/requests-closed/" + requestId);
+        moveFirebaseRecord(oldUserRequestRef, newUserRequestRef);
+
+        var oldRequestRef = Firebase.database().ref(organization + "/requests-confirmed/" + requestId);
+        var newRequestRef = Firebase.database().ref(organization + "/requests-closed/" + requestId);
+        var currentUserCreditRef = Firebase.database().ref(organization + "/users/"+ currentUser.uid + "/metadata/credits");
+        var responderCreditRef = Firebase.database().ref(organization + "/users/"+ responderId + "/metadata/credits");
+        this.moveCompletedRequestAndExchangeCredits(oldRequestRef, newRequestRef, currentUserCreditRef, responderCreditRef);
+      });
+    }
+  }
+
+  moveCompletedRequestAndExchangeCredits(oldRef, newRef, currentUserCreditRef, responderCreditRef) {
+  oldRef.once('value', (snapshot) =>  {
+    var request = snapshot.val();
+    var creatorId = request.creatorUid;
+    var responderId = request.confirmedResponderId;
+    var amountToExchanged = request.duration;
+      
+    newRef.set(snapshot.val(), 
+      (error) => {
+        if( !error ) {  
+          oldRef.remove(); 
+          responderCreditRef.once('value', (snapshot) => {
+            var responderCreditValue = snapshot.val();
+            responderCreditRef.set(responderCreditValue + amountToExchanged,
+              (error) => {
+                if ( !error ) {
+                  currentUserCreditRef.once('value', (snapshot) => {
+                    var currentUserCreditValue = snapshot.val();
+                    currentUserCreditRef.set(currentUserCreditValue - amountToExchanged,
+                      (error) => {
+                        if( typeof(console) !== 'undefined' && console.error ) { console.error(error); }
+                      });
+                  });
+                } else if( typeof(console) !== 'undefined' && console.error ) {  
+                  console.error(error); 
+                }
+              });
+          });
+        }
+        else if( typeof(console) !== 'undefined' && console.error ) {  console.error(error); }
+      });
+  });
+}
+
+
+  
 }
 
 

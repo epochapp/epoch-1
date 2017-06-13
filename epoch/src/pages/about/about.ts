@@ -51,6 +51,10 @@ export class AboutPage {
     console.log('ionViewDidLoad AboutPage');
   }
 
+  markRequestCompleted(requestId: string, responderId: string) {
+    this.requests.markRequestCompleted(requestId, responderId);
+  }
+
   showRequestWithResponses(requestId: string) {
     console.log("Opening detailed request page with responses");
     var requestParameters = {requestId: requestId};
