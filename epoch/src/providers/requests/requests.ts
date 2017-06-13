@@ -67,9 +67,10 @@ export class RequestsProvider {
    * Adds a response to an open request from the current user
    *  - Adds a Response to /requests-open/<REQUEST>/responses-open
    *  - Increment Response Counter in /requests-open/<REQUEST>/responseCount
-   *  - Adds a Response to users/<CURRENTUSER>/responses-open
+   *  - Adds a Response to users/<REQUESTCREATOR>/requests/responses-open
+   *  - Adds a Response to users/<REQUESTCREATOR>/requests/responsesCount
    */
-   submitResponseToOpenRequest(requestId: string) {
+   submitResponseToOpenRequest(requestId: string, requestCreatorId: string) {
     var currentUser = Firebase.auth().currentUser;
     var d = new Date();
     var responderName: String;
@@ -89,7 +90,7 @@ export class RequestsProvider {
         // Update current responses list
         requestResponsesList = this.db.list(organization + '/requests-open/' + requestId + '/responses-open');
         var requestResponseCountRef = Firebase.database().ref(organization + "/requests-open/"+ requestId + "/responseCount");
-        var requestUserResponseCountRef = Firebase.database().ref(organization + "/users/"+ currentUser.uid + "/requests-open/" + requestId + "/responseCount");
+        var requestUserResponseCountRef = Firebase.database().ref(organization + "/users/"+ requestCreatorId + "/requests-open/" + requestId + "/responseCount");
 
         var userMetadataRef = Firebase.database().ref(organization + "/users/"+ currentUser.uid + "/metadata/displayName");
 
@@ -105,9 +106,6 @@ export class RequestsProvider {
           };
 
           requestResponsesList.push(newResponse).then( (snapshot) => {
-            //const newKey = snapshot.key;
-            //var userNewOpenResponseRef = Firebase.database().ref(organization + "/users/"+ currentUser.uid + "/responses-open/" + newKey);
-            //userNewOpenResponseRef.set(newResponse);
             incrementResponseCount(requestResponseCountRef);
             incrementResponseCount(requestUserResponseCountRef);
           });
@@ -209,12 +207,37 @@ export class RequestsProvider {
                   console.error(error); 
                 }
               });
-          });
-        }
-        else if( typeof(console) !== 'undefined' && console.error ) {  console.error(error); }
+            });
+          }
+          else if( typeof(console) !== 'undefined' && console.error ) {  console.error(error); }
+        });
+    });
+  }
+
+  /*
+   * Removes an open request from the list
+   *  - Removes the request from /requests-open
+   *  - Removes the request from users/<CURRENTUSER>/requests-open
+   */
+  remove(requestId) {
+    var currentUser = Firebase.auth().currentUser;
+
+    if (currentUser != null) {
+      // Get organization
+      var userOrgMapRef  = Firebase.database().ref("/user-org-map/" + currentUser.uid);
+      var organization : string;
+      userOrgMapRef.once("value", function(org) {
+        organization = org.val();
+      }, function (error) {
+        console.log("Couldn't get organization: " + error.code);
+      }).then( () => {
+        var requestRef = Firebase.database().ref(organization + "/requests-open/" + requestId);
+        var userRequestRef = Firebase.database().ref(organization + "/users/" + currentUser.uid + "/requests-open/" + requestId);
+        requestRef.remove();
+        userRequestRef.remove();
       });
-  });
-}
+    }
+  }
 
 
   

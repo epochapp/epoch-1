@@ -134,7 +134,7 @@ export class ExchangesPage {
           {
             text: 'Offer Assistance',
             handler: () => {
-              this.respondToRequest(requestId);
+              this.respondToRequest(requestId, requestCreatorId);
             }
           },{
             text: 'Back',
@@ -150,7 +150,7 @@ export class ExchangesPage {
   }
 
   removeRequest(requestId: string){
-    this.openRequests.remove(requestId);
+    this.requests.remove(requestId);
   }
 
   updateRequest(requestId: string, requestDescription: string){
@@ -184,7 +184,7 @@ export class ExchangesPage {
     prompt.present();
   }
 
-  respondToRequest(requestId: string) {
+  respondToRequest(requestId: string, requestCreatorId: string) {
     let prompt = this.alertCtrl.create({
       title: 'Respond to Request',
       message: "Will you offer to fulfill this request?",
@@ -198,12 +198,7 @@ export class ExchangesPage {
         {
           text: 'Confirm',
           handler: data => {
-            // var requestOldRef = Firebase.database().ref(this.organization + "/requests-open/" + requestId);
-            // var requestNewRef = Firebase.database().ref(this.organization + "/requests-confirmed/" + requestId);
-            // var requestOldUserRef = Firebase.database().ref(this.organization + "/users/" + Firebase.auth().currentUser.uid + "/requests-open/" + requestId);
-            // moveFirebaseRecord(requestOldRef, requestNewRef, requestOldUserRef);
-            // TODO: Add this request to the responders 'responses'
-            this.requests.submitResponseToOpenRequest(requestId);
+            this.requests.submitResponseToOpenRequest(requestId, requestCreatorId);
           }
         }
       ]
