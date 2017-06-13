@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { RequestLocationPage } from '../request-location/request-location';
 
 
 @IonicPage()
@@ -17,6 +18,6 @@ export class RequestDurationPage {
   }
 
   nextPage(){
-  	
+  	this.navCtrl.push(RequestLocationPage);
   }
 }

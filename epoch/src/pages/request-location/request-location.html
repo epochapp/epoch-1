@@ -1,0 +1,16 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Where would you like to meet?</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+	<ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+
+	<div #map id="map"></div>
+
+</ion-content>

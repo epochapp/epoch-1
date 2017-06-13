@@ -15,6 +15,7 @@ import { LoginPage } from '../pages/login/login';
 import { RequestDisplayPage } from '../pages/request-display/request-display';
 import { RequestOptionsPage } from '../pages/request-options/request-options';
 import { RequestDurationPage } from '../pages/request-duration/request-duration';
+import { RequestLocationPage } from '../pages/request-location/request-location';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -35,6 +36,7 @@ import { RequestsProvider } from '../providers/requests/requests';
     RequestDisplayPage
     RequestOptionsPage
     RequestDurationPage
+    RequestLocationPage
   ],
   imports: [
     BrowserModule,
@@ -54,6 +56,7 @@ import { RequestsProvider } from '../providers/requests/requests';
     RequestDisplayPage
     RequestOptionsPage
     RequestDurationPage
+    RequestLocationPage
   ],
   providers: [
     StatusBar,
