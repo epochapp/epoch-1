@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { RequestDetailPage } from '../request-detail/request-detail';
 
 declare var google;
 
@@ -36,6 +37,10 @@ export class RequestLocationPage {
 
   getItems(ev: any) {
 
+  }
+
+  nextPage(){
+  	this.navCtrl.push(RequestDetailPage);
   }
 
 }
