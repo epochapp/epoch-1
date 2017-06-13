@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { NavController, AlertController, ActionSheetController } from 'ionic-angular';
 
 import {AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable} from 'angularfire2/database';
 import * as Firebase from 'firebase/app';
-import { AngularFireAuth } from 'angularfire2/auth';
 
 import { OrganizationProvider } from '../../providers/organization/organization';
 import { RequestsProvider } from '../../providers/requests/requests';
