@@ -7,17 +7,62 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card>
-    <ion-card-content>
-      <ion-card-title>
-        Current User
-      </ion-card-title>
-      <p>
-        UID: {{ (user | async)?.uid }}
-      </p>
-    </ion-card-content>
-  </ion-card>
+  <ion-title>
+      My Open Requests
+  </ion-title>
+  <ion-list>
+    <ion-card  *ngFor="let request of currentUserOpenRequests | async" >
+      <ion-card-content>
+        <ion-card-title>
+          {{request.title}}
+        </ion-card-title>
+        <p>
+          <ion-icon name="time"></ion-icon> <b>{{request.duration}} hours</b>
+        </p>
+        <p>
+          {{request.description}}
+        </p>
+        <button ion-item color="light" (click)="showRequestWithResponses( request.$key )" full>
+            <p item-start>Show Responses</p>
+            <ion-badge item-end>{{ request.responseCount }}</ion-badge>
+        </button>
 
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+  <!-- a list of responses submitted by the user waiting for the requester to confirm/deny -->
+  <ion-title>
+    My Confirmed Requests
+  </ion-title>
+  <ion-list>
+    <ion-card  *ngFor="let request of currentUserConfirmedRequests | async">
+      <ion-card-content>
+        <ion-card-title>
+         {{request.title}}
+        </ion-card-title>
+        <p>With {{request.confirmedResponder}}</p>
+        <p>
+          <ion-icon name="time"></ion-icon> <b>{{request.duration}} hours</b>
+        </p>
+        <p>
+          {{request.description}}
+        </p>
+        <button ion-button color="secondary" (click)="markRequestCompleted( request.$key, request.confirmedResponderId )" full>
+            Mark as Completed
+        </button>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+  <ion-title>
+    Current User
+  </ion-title>
+  <p>UID: {{ (currentUser | async)?.uid }}</p>
+  <p>Name: {{ (currentUserMetadata | async)?.displayName }}</p>
+  <p>Organization: {{ (currentUserMetadata | async)?.org }}</p>
+  <p>Credits: {{ (currentUserMetadata | async)?.credits }}</p>    
+      
   <button ion-button block color="danger" (click)="logoutUser()">
     Logout
   </button>

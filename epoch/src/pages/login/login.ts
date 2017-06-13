@@ -51,6 +51,7 @@ export class LoginPage {
     } else {
       this.authData.loginUser(this.loginForm.value.email, this.loginForm.value.password)
         .then( authData => {
+        // Success
         this.navCtrl.setRoot(TabsPage);
       }, error => { 
         this.loading.dismiss().then( () => {

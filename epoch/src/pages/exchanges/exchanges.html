@@ -14,16 +14,16 @@
     Click on request cards to access more functionality
   </p>
   <ion-list>
-    <ion-card  *ngFor="let request of requests | async" (click)="showOptions(request.$key, request.description)"> <!-- TODO: Filter by requests that are have status=="open" -->
+    <ion-card  *ngFor="let request of openRequests | async" (click)="showOptions(request.$key, request.description, request.creatorUid)">
       <ion-card-content>
         <ion-card-title>
           {{request.title}}
         </ion-card-title>
         <p>
-          Created by: <b>{{request.creator}}</b>
+          Created by: <b>{{ request.creatorName }}</b>
         </p>
         <p>
-          Duration: <b>{{request.duration}} hours</b>
+          <ion-icon name="time"></ion-icon> <b>{{request.duration}} hours</b>
         </p>
         <p>
           {{request.description}}

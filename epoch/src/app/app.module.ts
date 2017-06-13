@@ -12,13 +12,15 @@ import { ContactPage } from '../pages/contact/contact';
 import { ExchangesPage } from '../pages/exchanges/exchanges';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
+import { RequestDisplayPage } from '../pages/request-display/request-display';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { firebaseConfig } from '../firebaseConfig.ts';
 import { AuthProvider } from '../providers/auth/auth';
-
+import { OrganizationProvider } from '../providers/organization/organization';
+import { RequestsProvider } from '../providers/requests/requests';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { AuthProvider } from '../providers/auth/auth';
     ContactPage,
     ExchangesPage,
     TabsPage,
-    LoginPage
+    LoginPage,
+    RequestDisplayPage
   ],
   imports: [
     BrowserModule,
@@ -43,13 +46,16 @@ import { AuthProvider } from '../providers/auth/auth';
     ContactPage,
     ExchangesPage,
     TabsPage,
-    LoginPage
+    LoginPage,
+    RequestDisplayPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthProvider
+    AuthProvider,
+    OrganizationProvider,
+    RequestsProvider
   ]
 })
 export class AppModule {}
