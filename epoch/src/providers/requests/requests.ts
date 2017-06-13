@@ -46,7 +46,8 @@ export class RequestsProvider {
             starttime: t,
             duration: duration,
             creatorUid: currentUser.uid,
-            creatorName: creatorName
+            creatorName: creatorName,
+            responseCount: 0
           };
 
           openRequests.push(newRequest).then( (snapshot) => {
@@ -64,7 +65,8 @@ export class RequestsProvider {
 
   /*
    * Adds a response to an open request from the current user
-   *  - Adds a Response to /requests-open/<REQUEST>/responses
+   *  - Adds a Response to /requests-open/<REQUEST>/responses-open
+   *  - Increment Response Counter in /requests-open/<REQUEST>/responseCount
    *  - Adds a Response to users/<CURRENTUSER>/responses-open
    */
    submitResponseToOpenRequest(requestId: string) {
@@ -86,8 +88,11 @@ export class RequestsProvider {
       }).then( () => {
         // Update current responses list
         requestResponsesList = this.db.list(organization + '/requests-open/' + requestId + '/responses-open');
+        var requestResponseCountRef = Firebase.database().ref(organization + "/requests-open/"+ requestId + "/responseCount");
+        var requestUserResponseCountRef = Firebase.database().ref(organization + "/users/"+ currentUser.uid + "/requests-open/" + requestId + "/responseCount");
 
         var userMetadataRef = Firebase.database().ref(organization + "/users/"+ currentUser.uid + "/metadata/displayName");
+
         userMetadataRef.once('value', function(snapshot)  {
           responderName = snapshot.val();
         }).then( () => {
@@ -100,9 +105,11 @@ export class RequestsProvider {
           };
 
           requestResponsesList.push(newResponse).then( (snapshot) => {
-            const newKey = snapshot.key;
-            var userNewOpenResponseRef = Firebase.database().ref(organization + "/users/"+ currentUser.uid + "/responses-open/" + newKey);
-            userNewOpenResponseRef.set(newResponse);
+            //const newKey = snapshot.key;
+            //var userNewOpenResponseRef = Firebase.database().ref(organization + "/users/"+ currentUser.uid + "/responses-open/" + newKey);
+            //userNewOpenResponseRef.set(newResponse);
+            incrementResponseCount(requestResponseCountRef);
+            incrementResponseCount(requestUserResponseCountRef);
           });
         });
       });
@@ -116,15 +123,13 @@ export class RequestsProvider {
    *  - Moves the same Request from users/<CURRENTUSER>/requests-open to users/<CURRENTUSER>/requests-confirmed
    *  - Exchanges credits (from requestor to responder)
    */
-  confirmResponseToOpenRequest(requestId: string, ) {
+  confirmResponseToOpenRequest( responseId: string, requestId: string ) {
     var currentUser = Firebase.auth().currentUser;
     var d = new Date();
     var responderName: String;
     var requestResponsesList: FirebaseListObservable<any[]>;
 
     if (currentUser != null) {
-      var t = d.getTime();
-
       // Get organization
       var userOrgMapRef  = Firebase.database().ref("/user-org-map/" + currentUser.uid);
       var organization : string;
@@ -133,27 +138,59 @@ export class RequestsProvider {
       }, function (error) {
         console.log("Couldn't get organization: " + error.code);
       }).then( () => {
-        var newUserRequestRef = Firebase.database().ref(organization + "/users/"+ currentUser.uid + "/requests-confirmed/" + requestId);
-        var oldUserRequestRef = Firebase.database().ref(organization + "/users/"+ currentUser.uid + "/requests-open/" + requestId);
-        moveFirebaseRecord(oldUserRequestRef, newUserRequestRef);
+        // Get response data
+        var responseRef = Firebase.database().ref(organization + "/requests-open/" + requestId + "/responses-open/" + responseId);
+        responseRef.once('value', (snapshot) => {
+          var response = snapshot.val();
+          var newUserRequestRef = Firebase.database().ref(organization + "/users/"+ currentUser.uid + "/requests-confirmed/" + requestId);
+          var oldUserRequestRef = Firebase.database().ref(organization + "/users/"+ currentUser.uid + "/requests-open/" + requestId);
+          moveAndConfirmRequest(oldUserRequestRef, newUserRequestRef, response.responderName, response.responderId);
 
-        var newRequestRef = Firebase.database().ref(organization + "/requests-confirmed/" + requestId);
-        var oldRequestRef = Firebase.database().ref(organization + "/requests-open/" + requestId);
-        moveFirebaseRecord(oldRequestRef, newRequestRef);
-
-        // TODO: Add a confirm field to request in request-confirmed
-        // 
+          var newRequestRef = Firebase.database().ref(organization + "/requests-confirmed/" + requestId);
+          var oldRequestRef = Firebase.database().ref(organization + "/requests-open/" + requestId);
+          moveAndConfirmRequest(oldRequestRef, newRequestRef, response.responderName, response.responderId);
+        });
+        
       });
     }
+  }
+}
 
-   }
+
+function incrementResponseCount(responseCountRef) {    
+  responseCountRef.once('value', (snapshot) =>  {
+    responseCountRef.set( snapshot.val() + 1, (error) => {
+      if( typeof(console) !== 'undefined' && console.error ) {  console.error(error); }
+    });
+  });
+}
+
+function moveAndConfirmRequest(oldRef, newRef, responderName: string, responderId: string) {
+  oldRef.once('value', (snapshot) =>  {
+    var request = snapshot.val();
+    var newRequest = {
+      title: request.title,
+      description: request.description,
+      starttime: request.starttime,
+      duration: request.duration,
+      creatorUid: request.creatorUid,
+      creatorName: request.creatorName,
+      responseCount: request.responseCount,
+      confirmedResponder: responderName,
+      confirmedResponderId: responderId
+    };
+    newRef.set(newRequest, (error) => {
+      if( !error ) {  oldRef.remove(); }
+      else if( typeof(console) !== 'undefined' && console.error ) {  console.error(error); }
+    });
+  });
 }
 
 function moveFirebaseRecord(oldRef, newRef) {    
-     oldRef.once('value', function(snapshot)  {
-          newRef.set( snapshot.val(), function(error) {
-               if( !error ) {  oldRef.remove(); }
-               else if( typeof(console) !== 'undefined' && console.error ) {  console.error(error); }
-          });
-     });
+  oldRef.once('value', (snapshot) =>  {
+    newRef.set( snapshot.val(), (error) => {
+      if( !error ) {  oldRef.remove(); }
+      else if( typeof(console) !== 'undefined' && console.error ) {  console.error(error); }
+    });
+  });
 }

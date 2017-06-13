@@ -55,12 +55,14 @@ export class ExchangesPage {
       }).then( () => {
         this.organization = orgRetrieved;
         this.openRequests = db.list(orgRetrieved + '/requests-open');
-        this.currentUserMetadata = db.object(organizationData.getOrganization() + '/users/' + currentUser.uid + '/metadata');
-        this.currentUserOpenRequests = db.list(organizationData.getOrganization() + '/users/' + currentUser.uid + '/requests-open');
+        this.currentUserMetadata = db.object(this.organization + '/users/' + currentUser.uid + '/metadata');
+        this.currentUserOpenRequests = db.list(this.organization + '/users/' + currentUser.uid + '/requests-open');
       });
      }
-     
-  
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad LoginPage');
   }
 
   // Generates a new request entity in Firebase using user input

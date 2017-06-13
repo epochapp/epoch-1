@@ -8,46 +8,49 @@
 
 <ion-content padding>
   <ion-title>
-      Open Requests
+      My Open Requests
   </ion-title>
   <ion-list>
-    <ion-card  *ngFor="let request of currentUserRequests | async" >
+    <ion-card  *ngFor="let request of currentUserOpenRequests | async" >
       <ion-card-content>
         <ion-card-title>
           {{request.title}}
         </ion-card-title>
-        <p>
-          Created by: <b>{{ request.creatorName }}</b>
-        </p>
         <p>
           <ion-icon name="time"></ion-icon> <b>{{request.duration}} hours</b>
         </p>
         <p>
           {{request.description}}
         </p>
-        <ion-list>
-          Responses:
-          <ion-card *ngFor="let response of request.responses-open | async" >
-            <ion-card-content>
-              <p>Confirm {{response.responderName}}</p>
-            </ion-card-content> 
-          </ion-card>
-        </ion-list>
+        <button ion-item color="light" (click)="showRequestWithResponses( request.$key )" full>
+            <p item-start>Show Responses</p>
+            <ion-badge item-end>{{ request.responseCount }}</ion-badge>
+        </button>
+
       </ion-card-content>
     </ion-card>
   </ion-list>
 
+  <!-- a list of responses submitted by the user waiting for the requester to confirm/deny -->
   <ion-title>
-    Open Responses
+    My Confirmed Requests
   </ion-title>
   <ion-list>
-    <ion-card  *ngFor="let response of currentUserResponses | async" 
-                (click)="confirmResponseToOpenRequest( response.requestId )">
+    <ion-card  *ngFor="let request of currentUserConfirmedRequests | async">
       <ion-card-content>
         <ion-card-title>
-          {{response.responderName}}
+         {{request.title}}
         </ion-card-title>
-        {{response.requestId}}
+        <p>With {{request.confirmedResponder}}</p>
+        <p>
+          <ion-icon name="time"></ion-icon> <b>{{request.duration}} hours</b>
+        </p>
+        <p>
+          {{request.description}}
+        </p>
+        <button ion-button color="secondary" (click)="markRequestCompleted( request.$key )" full>
+            Mark as Completed
+        </button>
       </ion-card-content>
     </ion-card>
   </ion-list>
