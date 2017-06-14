@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController, ActionSheetController } from 'ionic-angular';
-import { AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
-import { RequestOptionsPage } from '../request-options/request-options'; 
 
 import {AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable} from 'angularfire2/database';
 import * as Firebase from 'firebase/app';
@@ -9,6 +7,7 @@ import * as Firebase from 'firebase/app';
 import { OrganizationProvider } from '../../providers/organization/organization';
 import { RequestsProvider } from '../../providers/requests/requests';
 
+import { RequestOptionsPage } from '../request-options/request-options'; 
 
 @Component({
   selector: 'page-exchanges',

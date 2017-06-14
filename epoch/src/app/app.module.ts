@@ -34,10 +34,10 @@ import { RequestsProvider } from '../providers/requests/requests';
     ExchangesPage,
     TabsPage,
     LoginPage,
-    RequestDisplayPage
-    RequestOptionsPage
-    RequestDurationPage
-    RequestLocationPage
+    RequestDisplayPage,
+    RequestOptionsPage,
+    RequestDurationPage,
+    RequestLocationPage,
     RequestDetailPage
   ],
   imports: [
@@ -55,10 +55,10 @@ import { RequestsProvider } from '../providers/requests/requests';
     ExchangesPage,
     TabsPage,
     LoginPage,
-    RequestDisplayPage
-    RequestOptionsPage
-    RequestDurationPage
-    RequestLocationPage
+    RequestDisplayPage,
+    RequestOptionsPage,
+    RequestDurationPage,
+    RequestLocationPage,
     RequestDetailPage
   ],
   providers: [
