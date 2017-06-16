@@ -1,8 +1,10 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { RequestDetailPage } from '../request-detail/request-detail';
+import { SearchLocationPage } from '../search-location/search-location';
 
 declare var google;
+
 
 @IonicPage()
 @Component({
@@ -13,12 +15,21 @@ export class RequestLocationPage {
 
 	@ViewChild('map') mapElement: ElementRef;
   map: any;
+  geocoder: any;
+  location;
+  marker;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams,
+              private modalCtrl: ModalController) {
+    this.location = {
+      address: ''
+    };
   }
 
   ionViewDidLoad() {
     this.loadMap();
+    this.geocoder = new google.maps.Geocoder();
   }
 
   loadMap(){
@@ -32,11 +43,35 @@ export class RequestLocationPage {
     }
  
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-
   }
 
-  getItems(ev: any) {
+  updateMap() {
+    let me = this;
+    let latLng = this.geocoder.geocode({'address': this.location.address}, function(results, status) {
+      
+      if (status === 'OK') {
+        if (results[0]) {
+          
+          me.map.panTo(results[0].geometry.location);
+          
+          var marker = new google.maps.Marker({
+            setMap: me.map,
+            animation: google.maps.Animation.DROP,
+            position: me.map.getCenter(),
+          });
+        }
+      }
+    });
+  }
 
+  showAddressModal () {
+    let modal = this.modalCtrl.create(SearchLocationPage);
+    let me = this;
+    modal.onDidDismiss(data => {
+      this.location.address = data;
+      this.updateMap();
+    });
+    modal.present();
   }
 
   nextPage(){

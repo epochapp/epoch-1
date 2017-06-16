@@ -7,9 +7,9 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
 
-	<ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+	<ion-searchbar (click)="showAddressModal()" [(ngModel)]="location.address">Search a Location</ion-searchbar>
 
 	<div #map id="map"></div>
 
