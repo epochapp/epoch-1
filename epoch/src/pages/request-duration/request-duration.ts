@@ -9,15 +9,15 @@ import { RequestLocationPage } from '../request-location/request-location';
   templateUrl: 'request-duration.html',
 })
 export class RequestDurationPage {
+  date;
+  time;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RequestDurationPage');
-  }
-
   nextPage(){
-  	this.navCtrl.push(RequestLocationPage);
+    this.navParams.data['date'] = this.date;
+    this.navParams.data['time'] = this.time;
+    this.navCtrl.push(RequestLocationPage, this.navParams);
   }
 }

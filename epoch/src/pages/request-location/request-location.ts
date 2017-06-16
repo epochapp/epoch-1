@@ -75,7 +75,8 @@ export class RequestLocationPage {
   }
 
   nextPage(){
-  	this.navCtrl.push(RequestDescriptionPage);
+    this.navParams.data['address'] = this.location.address;
+  	this.navCtrl.push(RequestDescriptionPage, this.navParams);
   }
 
 }

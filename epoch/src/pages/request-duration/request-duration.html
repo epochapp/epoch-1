@@ -11,17 +11,17 @@
 
 	<ion-item>
 	  <ion-label>Date:</ion-label>
-	  <ion-datetime displayFormat="MMMM D" pickerFormat="MMMM D"></ion-datetime>
+	  <ion-datetime displayFormat="MMMM D" pickerFormat="MMMM D" [(ngModel)]="date"></ion-datetime>
 	</ion-item>
 
 	<ion-item>
 	  <ion-label>Time:</ion-label>
-	  <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A"></ion-datetime>
+	  <ion-datetime displayFormat="h:mm A" pickerFormat="h:mm A" [(ngModel)]="time"></ion-datetime>
 	</ion-item>
 
 	<ion-item>
 	  <ion-label>Duration:</ion-label>
-	  <!--<ion-datetime displayFormat="" pickerFormat=""></ion-datetime>-->
+	  <!--<ion-datetime displayFormat="" pickerFormat="" [(ngModel)]="duration"></ion-datetime>-->
 	</ion-item>
 
 	<ion-footer no-border>

@@ -8,8 +8,8 @@ import { RequestDurationPage } from '../request-duration/request-duration';
   templateUrl: 'request-options.html',
 })
 export class RequestOptionsPage {
-
-	public requestOptions;
+  selectedOption;
+	requestOptions;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -25,7 +25,7 @@ export class RequestOptionsPage {
   }
 
   nextPage(){
-    this.navCtrl.push(RequestDurationPage);
+    this.navCtrl.push(RequestDurationPage, {'title': this.selectedOption});
   }
 
 }

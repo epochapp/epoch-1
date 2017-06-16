@@ -9,12 +9,14 @@ import { RequestDetailPage } from '../request-detail/request-detail';
   templateUrl: 'request-description.html',
 })
 export class RequestDescriptionPage {
+	description;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   nextPage(){
-  	this.navCtrl.push(RequestDetailPage);
+  	this.navParams.data['description'] = this.description;
+  	this.navCtrl.push(RequestDetailPage, this.navParams);
   }
 
 }

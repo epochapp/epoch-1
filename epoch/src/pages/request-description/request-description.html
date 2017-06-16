@@ -10,7 +10,7 @@
 <ion-content>
 
 	<ion-label>Anything else you'd like to say?</ion-label>
-	<ion-textarea placeholder="">Enter your request details here</ion-textarea>
+	<ion-textarea placeholder="Enter your request details here" [(ngModel)]="description"></ion-textarea>
 
 	<ion-footer no-border>
 		<button full ion-button (click)="nextPage()">Next</button>
