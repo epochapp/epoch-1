@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
-import { RequestDetailPage } from '../request-detail/request-detail';
+import { RequestDescriptionPage } from '../request-description/request-description';
 import { SearchLocationPage } from '../search-location/search-location';
 
 declare var google;
@@ -75,7 +75,7 @@ export class RequestLocationPage {
   }
 
   nextPage(){
-  	this.navCtrl.push(RequestDetailPage);
+  	this.navCtrl.push(RequestDescriptionPage);
   }
 
 }

@@ -18,6 +18,7 @@ import { RequestDurationPage } from '../pages/request-duration/request-duration'
 import { RequestLocationPage } from '../pages/request-location/request-location';
 import { SearchLocationPage } from '../pages/search-location/search-location';
 import { RequestDetailPage } from '../pages/request-detail/request-detail';
+import { RequestDescriptionPage } from '../pages/request-description/request-description';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -40,7 +41,8 @@ import { RequestsProvider } from '../providers/requests/requests';
     RequestDurationPage,
     RequestLocationPage,
     SearchLocationPage,
-    RequestDetailPage
+    RequestDetailPage,
+    RequestDescriptionPage
   ],
   imports: [
     BrowserModule,
@@ -62,7 +64,8 @@ import { RequestsProvider } from '../providers/requests/requests';
     RequestDurationPage,
     RequestLocationPage,
     SearchLocationPage,
-    RequestDetailPage
+    RequestDetailPage,
+    RequestDescriptionPage
   ],
   providers: [
     StatusBar,
