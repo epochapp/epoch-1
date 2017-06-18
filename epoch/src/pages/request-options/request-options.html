@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Choose a Request</ion-title>
+    <ion-title>What do you need help with?</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -10,10 +10,6 @@
 <ion-content>
 
 	<ion-list radio-group [(ngModel)]="selectedOption">
-
-	  <ion-list-header>
-	    What do you need help with?
-	  </ion-list-header>
 
 	  <ion-item *ngFor="let option of requestOptions">
 	    <ion-label>{{option.title}}</ion-label>

@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Request Description</ion-title>
+    <ion-title>Anything else you'd like to say?</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -9,8 +9,9 @@
 
 <ion-content>
 
-	<ion-label>Anything else you'd like to say?</ion-label>
-	<ion-textarea placeholder="Enter your request details here" [(ngModel)]="description"></ion-textarea>
+	<ion-item id="description">
+		<ion-textarea [(ngModel)]="description"></ion-textarea>
+	</ion-item>
 
 	<ion-footer no-border>
 		<button full ion-button (click)="nextPage()">Next</button>
