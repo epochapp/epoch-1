@@ -11,6 +11,7 @@ import { RequestLocationPage } from '../request-location/request-location';
 export class RequestDurationPage {
   date;
   time;
+  duration;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -18,6 +19,7 @@ export class RequestDurationPage {
   nextPage(){
     this.navParams.data['date'] = this.date;
     this.navParams.data['time'] = this.time;
+    this.navParams.data['duration'] = this.duration;
     this.navCtrl.push(RequestLocationPage, this.navParams);
   }
 }

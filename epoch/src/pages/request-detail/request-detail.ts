@@ -11,7 +11,7 @@ export class RequestDetailPage {
 	title;
 	date;
 	time;
-	//duration;
+	duration;
 	address;
 	description;
 
@@ -19,7 +19,7 @@ export class RequestDetailPage {
   	this.title = navParams.get('title');
   	this.date = navParams.get('date');
   	this.time = navParams.get('time');
-  	//this.duration = navParams.get('duration');
+  	this.duration = navParams.get('duration');
   	this.address = navParams.get('address');
   	this.description = navParams.get('description');
   }
