@@ -1,5 +1,5 @@
-import { Component, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { Component, ViewChild, NgZone } from '@angular/core';
+import { IonicPage, NavController, NavParams, ViewController, Searchbar } from 'ionic-angular';
 
 declare var google;
 
@@ -10,18 +10,21 @@ declare var google;
   templateUrl: 'search-location.html',
 })
 export class SearchLocationPage {
-	autocompleteItems;
-	userInput;
+	
+  @ViewChild('searchbar') searchbar: Searchbar;
+  autocompleteItems;
+	query;
 	service = new google.maps.places.AutocompleteService();
 
   constructor(public navCtrl: NavController,
   						public navParams: NavParams,
   						public viewCtrl: ViewController,
   						private zone: NgZone) {
-  	this.autocompleteItems = [];
-  	this.userInput = {
-  		query: ''
-  	};
+    this.autocompleteItems = [];
+  }
+
+  ionViewDidLoad() {
+    this.searchbar.setFocus();
   }
 
   dismiss() {
@@ -32,13 +35,13 @@ export class SearchLocationPage {
 		this.viewCtrl.dismiss(item);
   }
 
-  updateSearch() {
-  	if (this.userInput.query == '') {
+  updateAutocomplete() {
+  	if (this.query == '') {
   		this.autocompleteItems = [];
   		return;
   	}
   	let me = this;
-  	this.service.getPlacePredictions({ input: this.userInput.query, componentRestrictions: {} }, function (predictions, status) {
+  	this.service.getPlacePredictions({ input: this.query, componentRestrictions: {} }, function (predictions, status) {
   		me.autocompleteItems = [];
   		me.zone.run(function () {
   			predictions.forEach(function (prediction) {

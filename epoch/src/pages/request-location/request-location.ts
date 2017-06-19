@@ -16,15 +16,12 @@ export class RequestLocationPage {
 	@ViewChild('map') mapElement: ElementRef;
   map: any;
   geocoder: any;
-  location;
+  address;
   marker;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private modalCtrl: ModalController) {
-    this.location = {
-      address: ''
-    };
   }
 
   ionViewDidLoad() {
@@ -47,7 +44,7 @@ export class RequestLocationPage {
 
   updateMap() {
     let me = this;
-    let latLng = this.geocoder.geocode({'address': this.location.address}, function(results, status) {
+    let latLng = this.geocoder.geocode({'address': this.address}, function(results, status) {
       
       if (status === 'OK') {
         if (results[0]) {
@@ -55,27 +52,27 @@ export class RequestLocationPage {
           me.map.panTo(results[0].geometry.location);
           
           var marker = new google.maps.Marker({
-            setMap: me.map,
+            position: results[0].geometry.location,
             animation: google.maps.Animation.DROP,
-            position: me.map.getCenter(),
+            map: me.map
           });
         }
       }
     });
   }
 
-  showAddressModal () {
+  showSearchModal () {
     let modal = this.modalCtrl.create(SearchLocationPage);
     let me = this;
     modal.onDidDismiss(data => {
-      this.location.address = data;
+      this.address = data;
       this.updateMap();
     });
     modal.present();
   }
 
   nextPage(){
-    this.navParams.data['address'] = this.location.address;
+    this.navParams.data['address'] = this.address;
   	this.navCtrl.push(RequestDescriptionPage, this.navParams);
   }
 
