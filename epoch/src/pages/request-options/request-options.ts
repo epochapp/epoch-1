@@ -25,7 +25,14 @@ export class RequestOptionsPage {
   }
 
   nextPage(){
-    this.navCtrl.push(RequestDurationPage, {'title': this.selectedOption});
+    
+    if(this.selectedOption == null) {
+      document.getElementById("option-error").style.display = 'block';
+    }
+    else {
+      document.getElementById("option-error").style.display = 'none';
+      this.navCtrl.push(RequestDurationPage, {'title': this.selectedOption});
+    }
   }
 
 }

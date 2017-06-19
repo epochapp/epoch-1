@@ -17,9 +17,16 @@ export class RequestDurationPage {
   }
 
   nextPage(){
-    this.navParams.data['date'] = this.date;
-    this.navParams.data['time'] = this.time;
-    this.navParams.data['duration'] = this.duration;
-    this.navCtrl.push(RequestLocationPage, this.navParams);
+
+    if(this.date == null || this.time == null || this.duration == null) {
+      document.getElementById("duration-error").style.display = 'block';
+    }
+    else {
+      document.getElementById("duration-error").style.display = 'none';
+      this.navParams.data['date'] = this.date;
+      this.navParams.data['time'] = this.time;
+      this.navParams.data['duration'] = this.duration;
+      this.navCtrl.push(RequestLocationPage, this.navParams);
+    }
   }
 }

@@ -72,8 +72,15 @@ export class RequestLocationPage {
   }
 
   nextPage(){
-    this.navParams.data['address'] = this.address;
-  	this.navCtrl.push(RequestDescriptionPage, this.navParams);
+
+    if(this.address == null) {
+      document.getElementById('searchbar').style.backgroundColor = "#ff5e66";
+    }
+    else {
+      document.getElementById('searchbar').style.backgroundColor = "#ffffff";
+      this.navParams.data['address'] = this.address;
+      this.navCtrl.push(RequestDescriptionPage, this.navParams);
+    }
   }
 
 }
