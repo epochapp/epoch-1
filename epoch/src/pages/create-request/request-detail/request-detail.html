@@ -1,0 +1,28 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Request Summary</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+	<ion-icon id="profile-pic" name="contact"></ion-icon>
+
+	<h1>{{ title }}</h1>
+
+	<p><span>Date:</span> {{ date }}</p>
+	<p><span>Time:</span> {{ time }}</p>
+	<p><span>Duration:</span> {{ duration }} hour(s)</p>
+
+	<p><span>Address:</span> {{ address }}</p>
+
+	<p>{{ description }}</p>
+
+	<ion-footer no-border>
+		<button full ion-button (click)="createRequest()">Confirm</button>
+	</ion-footer>
+
+</ion-content>

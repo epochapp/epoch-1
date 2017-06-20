@@ -13,6 +13,12 @@ import { ExchangesPage } from '../pages/exchanges/exchanges';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { RequestDisplayPage } from '../pages/request-display/request-display';
+import { RequestOptionsPage } from '../pages/create-request/request-options/request-options';
+import { RequestDurationPage } from '../pages/create-request/request-duration/request-duration';
+import { RequestLocationPage } from '../pages/create-request/request-location/request-location';
+import { SearchLocationPage } from '../pages/create-request/search-location/search-location';
+import { RequestDetailPage } from '../pages/create-request/request-detail/request-detail';
+import { RequestDescriptionPage } from '../pages/create-request/request-description/request-description';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -30,7 +36,13 @@ import { RequestsProvider } from '../providers/requests/requests';
     ExchangesPage,
     TabsPage,
     LoginPage,
-    RequestDisplayPage
+    RequestDisplayPage,
+    RequestOptionsPage,
+    RequestDurationPage,
+    RequestLocationPage,
+    SearchLocationPage,
+    RequestDetailPage,
+    RequestDescriptionPage
   ],
   imports: [
     BrowserModule,
@@ -47,7 +59,13 @@ import { RequestsProvider } from '../providers/requests/requests';
     ExchangesPage,
     TabsPage,
     LoginPage,
-    RequestDisplayPage
+    RequestDisplayPage,
+    RequestOptionsPage,
+    RequestDurationPage,
+    RequestLocationPage,
+    SearchLocationPage,
+    RequestDetailPage,
+    RequestDescriptionPage
   ],
   providers: [
     StatusBar,

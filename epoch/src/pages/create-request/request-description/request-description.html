@@ -1,0 +1,20 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Anything else you'd like to say?</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+	<ion-item id="description">
+		<ion-textarea placeholder="(Optional)" [(ngModel)]="description"></ion-textarea>
+	</ion-item>
+
+	<ion-footer no-border>
+		<button full ion-button (click)="nextPage()">Next</button>
+	</ion-footer>
+
+</ion-content>

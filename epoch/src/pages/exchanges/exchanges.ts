@@ -7,6 +7,7 @@ import * as Firebase from 'firebase/app';
 import { OrganizationProvider } from '../../providers/organization/organization';
 import { RequestsProvider } from '../../providers/requests/requests';
 
+import { RequestOptionsPage } from '../create-request/request-options/request-options'; 
 
 @Component({
   selector: 'page-exchanges',
@@ -65,35 +66,7 @@ export class ExchangesPage {
 
   // Generates a new request entity in Firebase using user input
   addRequest() {
-    let prompt = this.alertCtrl.create({
-      title: 'Request Name',
-      message: "Enter the title of your new request",
-      inputs: [
-        {
-          name: 'title',
-          placeholder: 'Title'
-        },
-        {
-          name: 'description',
-          placeholder: 'Request description'
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Save',
-          handler: data => {
-            this.requests.postOpenRequest(data, this.openRequests);
-          }
-        }
-      ]
-    });
-    prompt.present();
+    this.navCtrl.push(RequestOptionsPage, { 'openRequests': this.openRequests } );
   }
 
   // Shows actions that can be taken to respond to or delete openRequests

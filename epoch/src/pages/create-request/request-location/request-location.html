@@ -1,0 +1,20 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Where would you like to meet?</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+	<ion-searchbar id="searchbar" (click)="showSearchModal()" [(ngModel)]="address"></ion-searchbar>
+
+	<div #map id="map"></div>
+
+	<ion-footer no-border>
+		<button full ion-button (click)="nextPage()">Next</button>
+	</ion-footer>
+
+</ion-content>

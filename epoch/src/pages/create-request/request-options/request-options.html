@@ -1,0 +1,29 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>What do you need help with?</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+	<ion-list radio-group [(ngModel)]="selectedOption">
+
+		<div id="option-error">
+			<p class="error-message" margin-left>Please select a service to continue.</p>
+		</div>
+
+	  <ion-item *ngFor="let option of requestOptions">
+	    <ion-label>{{option.title}}</ion-label>
+	    <ion-radio value={{option.title}}></ion-radio>
+	  </ion-item>
+
+	</ion-list>
+
+	<ion-footer no-border>
+		<button full ion-button (click)="nextPage()">Next</button>
+	</ion-footer>
+
+</ion-content>
