@@ -24,7 +24,6 @@ export class RequestsProvider {
     
     if (currentUser != null) {
       var t = d.getTime();
-      var duration = 2;
 
       // Get organization
       var userOrgMapRef  = Firebase.database().ref("/user-org-map/" + currentUser.uid);
@@ -44,7 +43,10 @@ export class RequestsProvider {
             title: data.title,
             description: data.description,
             starttime: t,
-            duration: duration,
+            date: data.date, 
+            time: data.time,
+            duration: data.duration,
+            address: data.address,
             creatorUid: currentUser.uid,
             creatorName: creatorName,
             responseCount: 0

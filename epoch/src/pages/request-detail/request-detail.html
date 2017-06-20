@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Thanks! Have a good time!</ion-title>
+    <ion-title>Request Summary</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -20,5 +20,9 @@
 	<p><span>Address:</span> {{ address }}</p>
 
 	<p>{{ description }}</p>
+
+	<ion-footer no-border>
+		<button full ion-button (click)="createRequest()">Confirm</button>
+	</ion-footer>
 
 </ion-content>

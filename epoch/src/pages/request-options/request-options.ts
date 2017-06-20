@@ -16,11 +16,16 @@ export class RequestOptionsPage {
 
   ionViewDidLoad() {
     
-    this.requestOptions = [
-      {title: 'Language Exchange'},
-      {title: 'Medical Interpretation'},
-      {title: 'Medical Transportation'},
-      {title: 'Child Minding'}
+    this.requestOptions = [ 
+      {title: 'Board Games'}, 
+      {title: 'Child Minding'}, 
+      {title: 'Cooking Lessons'}, 
+      {title: 'Cultural Exchange'}, 
+      {title: 'Explore the Community'}, 
+      {title: 'Language Exchange'}, 
+      {title: 'Learn Local Transporation'}, 
+      {title: 'Medical Interpretation'}, 
+      {title: 'Medical Transportation'}   
     ];
   }
 
@@ -31,7 +36,8 @@ export class RequestOptionsPage {
     }
     else {
       document.getElementById("option-error").style.display = 'none';
-      this.navCtrl.push(RequestDurationPage, {'title': this.selectedOption});
+      this.navParams.data['title'] = this.selectedOption;
+      this.navCtrl.push(RequestDurationPage, this.navParams);
     }
   }
 
