@@ -65,8 +65,10 @@ export class RequestLocationPage {
     let modal = this.modalCtrl.create(SearchLocationPage);
     let me = this;
     modal.onDidDismiss(data => {
-      this.address = data;
-      this.updateMap();
+      if (data != null) {
+        this.address = data;
+        this.updateMap();
+      }
     });
     modal.present();
   }

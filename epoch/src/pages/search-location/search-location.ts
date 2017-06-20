@@ -42,12 +42,15 @@ export class SearchLocationPage {
   	}
   	let me = this;
   	this.service.getPlacePredictions({ input: this.query, componentRestrictions: {} }, function (predictions, status) {
-  		me.autocompleteItems = [];
-  		me.zone.run(function () {
-  			predictions.forEach(function (prediction) {
-  				me.autocompleteItems.push(prediction.description);
-  			});
-  		});
+  		
+      if (status === 'OK') {
+        me.autocompleteItems = [];
+        me.zone.run(function () {
+          predictions.forEach(function (prediction) {
+            me.autocompleteItems.push(prediction.description);
+          });
+        });
+      }
 		});
   }
 
