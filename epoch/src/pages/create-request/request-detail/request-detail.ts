@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { RequestsProvider } from '../../providers/requests/requests';
-import { ExchangesPage } from '../exchanges/exchanges';
+import { RequestsProvider } from '../../../providers/requests/requests';
+import { ExchangesPage } from '../../exchanges/exchanges';
 
 @IonicPage()
 @Component({

@@ -13,12 +13,12 @@ import { ExchangesPage } from '../pages/exchanges/exchanges';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { RequestDisplayPage } from '../pages/request-display/request-display';
-import { RequestOptionsPage } from '../pages/request-options/request-options';
-import { RequestDurationPage } from '../pages/request-duration/request-duration';
-import { RequestLocationPage } from '../pages/request-location/request-location';
-import { SearchLocationPage } from '../pages/search-location/search-location';
-import { RequestDetailPage } from '../pages/request-detail/request-detail';
-import { RequestDescriptionPage } from '../pages/request-description/request-description';
+import { RequestOptionsPage } from '../pages/create-request/request-options/request-options';
+import { RequestDurationPage } from '../pages/create-request/request-duration/request-duration';
+import { RequestLocationPage } from '../pages/create-request/request-location/request-location';
+import { SearchLocationPage } from '../pages/create-request/search-location/search-location';
+import { RequestDetailPage } from '../pages/create-request/request-detail/request-detail';
+import { RequestDescriptionPage } from '../pages/create-request/request-description/request-description';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';

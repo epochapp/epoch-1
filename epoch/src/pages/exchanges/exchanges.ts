@@ -7,7 +7,7 @@ import * as Firebase from 'firebase/app';
 import { OrganizationProvider } from '../../providers/organization/organization';
 import { RequestsProvider } from '../../providers/requests/requests';
 
-import { RequestOptionsPage } from '../request-options/request-options'; 
+import { RequestOptionsPage } from '../create-request/request-options/request-options'; 
 
 @Component({
   selector: 'page-exchanges',
