@@ -13,7 +13,8 @@ export class RequestDetailPage {
 	title;
 	date;
 	time;
-	duration;
+	hours;
+  minutes;
 	address;
 	description;
 
@@ -23,7 +24,8 @@ export class RequestDetailPage {
   	this.title = navParams.get('title'); 
     this.date = navParams.get('date'); 
     this.time = navParams.get('time'); 
-    this.duration = navParams.get('duration'); 
+    this.hours = navParams.get('hours');
+    this.minutes = navParams.get('minutes');
     this.address = navParams.get('address'); 
     this.description = navParams.get('description');
   }
@@ -35,11 +37,14 @@ export class RequestDetailPage {
       this.description = '';
     }
 
+    // Convert to Number to add instead of concatenate the operands
+    var duration = Number(this.hours) + Number((this.minutes / 60).toFixed(2));
+
     var data = {
       'title': this.title,
       'date': this.date,
       'time': this.time,
-      'duration': this.duration,
+      'duration': duration,
       'address': this.address,
       'description': this.description
     }

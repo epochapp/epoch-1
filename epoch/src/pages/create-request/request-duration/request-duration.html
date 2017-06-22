@@ -23,10 +23,26 @@
 	  <ion-datetime displayFormat="h:mm A" pickerFormat="h:mm A" [(ngModel)]="time"></ion-datetime>
 	</ion-item>
 
-  <ion-item>
-  	<ion-label>Duration:</ion-label>
-  	<ion-datetime displayFormat="h" pickerFormat="h" [(ngModel)]="duration"></ion-datetime>
-  </ion-item>
+	<div>
+	  <ion-label margin-left>Duration</ion-label>
+		<ion-grid>
+			<ion-row>
+				<ion-col>
+					<ion-item>
+						<ion-label>Hours:</ion-label>
+						<ion-input type="number" placeholder="0" min="0" max="24" clearOnEdit [(ngModel)]="hours"></ion-input>
+					</ion-item>
+				</ion-col>
+				<ion-col>
+					<ion-item>
+						<ion-label>Minutes:</ion-label>
+						<ion-input type="number" placeholder="00" min="0" max="60" clearOnEdit [(ngModel)]="minutes"></ion-input>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</div>
+
 
 	<ion-footer no-border>
 		<button full ion-button (click)="nextPage()">Next</button>

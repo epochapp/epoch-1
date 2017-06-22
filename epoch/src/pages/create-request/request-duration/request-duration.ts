@@ -13,7 +13,8 @@ export class RequestDurationPage {
   maxDate;
   date;
   time;
-  duration;
+  hours;
+  minutes;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     
@@ -36,14 +37,15 @@ export class RequestDurationPage {
 
   nextPage(){
 
-    if(this.date == null || this.time == null || this.duration == null) {
+    if(this.date == null || this.time == null || (this.hours == null && this.minutes == null) ) {
       document.getElementById("duration-error").style.display = 'block';
     }
     else {
       document.getElementById("duration-error").style.display = 'none';
       this.navParams.data['date'] = this.date;
       this.navParams.data['time'] = this.time;
-      this.navParams.data['duration'] = this.duration;
+      this.navParams.data['hours'] = this.hours;
+      this.navParams.data['minutes'] = this.minutes;
       this.navCtrl.push(RequestLocationPage, this.navParams);
     }
   }
