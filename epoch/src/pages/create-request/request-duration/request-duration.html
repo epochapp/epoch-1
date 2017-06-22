@@ -15,7 +15,7 @@
 
 	<ion-item>
 	  <ion-label>Date:</ion-label>
-	  <ion-datetime displayFormat="MMMM D, YYYY" pickerFormat="MMMM D, YYYY" [(ngModel)]="date"></ion-datetime>
+	  <ion-datetime displayFormat="MMMM D, YYYY" pickerFormat="MMMM D, YYYY" min={{minDate}} max={{maxDate}} [(ngModel)]="date"></ion-datetime>
 	</ion-item>
 
 	<ion-item>
