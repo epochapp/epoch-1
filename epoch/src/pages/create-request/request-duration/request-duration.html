@@ -15,7 +15,7 @@
 
 	<ion-item>
 	  <ion-label>Date:</ion-label>
-	  <ion-datetime displayFormat="MMMM D, YYYY" pickerFormat="MMMM D, YYYY" [(ngModel)]="date"></ion-datetime>
+	  <ion-datetime displayFormat="MMMM D, YYYY" pickerFormat="MMMM D, YYYY" min={{minDate}} max={{maxDate}} [(ngModel)]="date"></ion-datetime>
 	</ion-item>
 
 	<ion-item>
@@ -23,10 +23,24 @@
 	  <ion-datetime displayFormat="h:mm A" pickerFormat="h:mm A" [(ngModel)]="time"></ion-datetime>
 	</ion-item>
 
-  <ion-item>
-  	<ion-label>Duration:</ion-label>
-  	<ion-datetime displayFormat="h" pickerFormat="h" [(ngModel)]="duration"></ion-datetime>
-  </ion-item>
+  <ion-label margin-left>Duration</ion-label>
+  
+	<ion-grid no-padding>
+		<ion-row>
+			<ion-col>
+				<ion-item>
+					<ion-label>Hours:</ion-label>
+					<ion-input type="number" placeholder="0" min="0" max="24" clearOnEdit [(ngModel)]="hours"></ion-input>
+				</ion-item>
+			</ion-col>
+			<ion-col>
+				<ion-item>
+					<ion-label>Minutes:</ion-label>
+					<ion-input type="number" placeholder="00" min="0" max="60" clearOnEdit [(ngModel)]="minutes"></ion-input>
+				</ion-item>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
 
 	<ion-footer no-border>
 		<button full ion-button (click)="nextPage()">Next</button>
