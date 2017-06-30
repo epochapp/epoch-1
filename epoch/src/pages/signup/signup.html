@@ -47,6 +47,18 @@
     </ion-item>
 
     <ion-item>
+      <ion-label stacked>Phone Number</ion-label>
+      <ion-input formControlName="tel" type="tel" placeholder="Your phone number"
+                  [class.invalid]="!signupForm.controls.tel.valid && 
+                                   signupForm.controls.tel.dirty"></ion-input>
+    </ion-item>
+    <ion-item class="error-message" 
+              *ngIf="!signupForm.controls.tel.valid  && 
+                     signupForm.controls.tel.dirty">
+      <p>Please enter a valid phone number.</p>
+    </ion-item>
+
+    <ion-item>
       <ion-label stacked>Password</ion-label>
       <ion-input formControlName="password" type="password"  placeholder="Your password"
                  [class.invalid]="!signupForm.controls.password.valid && 
@@ -58,9 +70,7 @@
       <p>Your password needs at least 8 characters.</p>
     </ion-item>
 
-
-
-    <button ion-button block type="submit">
+    <button ion-button block margin-top type="submit">
       Create an Account
     </button>
 

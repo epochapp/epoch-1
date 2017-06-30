@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams,
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmailValidator } from '../../validators/email';
+import { TelValidator } from '../../validators/tel'
 
 import { AuthProvider } from '../../providers/auth/auth';
 
@@ -29,7 +30,8 @@ export class SignupPage {
         email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
         password: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
         name: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-        organization: ['', Validators.compose([Validators.required, Validators.minLength(1)])]
+        organization: ['', Validators.compose([Validators.required, Validators.minLength(1)])],
+        tel: ['', Validators.compose([Validators.required, TelValidator.isValid])]
       });
 
   }
@@ -43,7 +45,16 @@ export class SignupPage {
       // TODO: Throw an error
       console.log(this.signupForm.value);
     } else {
-      this.authData.signupUser(this.signupForm.value.email, this.signupForm.value.password, this.signupForm.value.name, this.signupForm.value.organization)
+
+      var userData = {
+        email: this.signupForm.value.email,
+        password: this.signupForm.value.password,
+        name: this.signupForm.value.name, 
+        organization: this.signupForm.value.organization,
+        tel: this.signupForm.value.tel
+      }
+
+      this.authData.signupUser(userData)
         .then(() => {
         // Success!
         this.navCtrl.setRoot(TabsPage);
