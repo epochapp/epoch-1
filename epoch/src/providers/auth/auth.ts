@@ -11,19 +11,25 @@ export class AuthProvider {
     
   }
 
-  signupUser(email: string, password: string, name: string, organization: string): firebase.Promise<any> {
-    var result = this.afAuth.auth.createUserWithEmailAndPassword(email, password).then( () => {
+  signupUser(user: { email: string,
+                     password: string, 
+                     name: string, 
+                     organization: string, 
+                     tel: string }): firebase.Promise<any> {
+    
+    var result = this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password).then( () => {
       // Create user database reference
-      firebase.database().ref(organization + '/users/' + this.afAuth.auth.currentUser.uid)
+      firebase.database().ref(user.organization + '/users/' + this.afAuth.auth.currentUser.uid)
         .set( { 
           metadata : {
-            displayName: name,
-            org: organization,
+            displayName: user.name,
+            org: user.organization,
+            tel: user.tel,
             credits: 10
           }
         });
       firebase.database().ref('user-org-map/' + this.afAuth.auth.currentUser.uid)
-        .set( organization );
+        .set( user.organization );
     }, (error) => {
       return error;
     })
