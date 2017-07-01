@@ -44,8 +44,8 @@ export class RequestDurationPage {
       document.getElementById("duration-error").style.display = 'none';
       this.navParams.data['date'] = this.date;
       this.navParams.data['time'] = this.time;
-      this.navParams.data['hours'] = this.hours;
-      this.navParams.data['minutes'] = this.minutes;
+      this.navParams.data['hours'] = (this.hours == null ? 0 : this.hours);
+      this.navParams.data['minutes'] = (this.minutes == null ? 0 : this.minutes);
       this.navCtrl.push(RequestLocationPage, this.navParams);
     }
   }

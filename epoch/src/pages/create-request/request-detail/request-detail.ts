@@ -50,7 +50,7 @@ export class RequestDetailPage {
     }
     var openRequests = this.navParams.get('openRequests');
     this.requests.postOpenRequest(data, openRequests);
-    this.navCtrl.push(ExchangesPage);
+    this.navCtrl.setRoot(ExchangesPage);
   }
 
 }
